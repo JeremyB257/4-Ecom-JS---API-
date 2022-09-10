@@ -1,49 +1,52 @@
 // SELECTOR
 const APIURL = 'http://localhost:3000/api/products';
 const items = document.getElementById('items');
-
-
+const qtyCart = document.querySelector('.qty-cart');
+let productArray = JSON.parse(localStorage.getItem('product'));
 // EVENT
 
 // FUNCTION
+if (productArray) {
+  qtyCart.innerHTML = `(${productArray.length})`;
+}
+
 async function fetchProduct() {
-    await fetch(APIURL)
+  await fetch(APIURL)
     .then((res) => res.json())
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .then((promise) => {
-        respData = promise
+      respData = promise;
     })
-    .catch(err => console.log(err))
-};
+    .catch((err) => console.log(err));
+}
 
 async function getProduct() {
-    await fetchProduct();
-    
-    respData.forEach(product => {
-        const a = document.createElement('a');
-        a.href = `./product.html?id= ${product._id}`
-        items.appendChild(a);
+  await fetchProduct();
 
-        const article = document.createElement('article');
-        a.appendChild(article);
+  respData.forEach((product) => {
+    const a = document.createElement('a');
+    a.href = `./product.html?id= ${product._id}`;
+    items.appendChild(a);
 
-        const img = document.createElement('img');
-        img.src = product.imageUrl;
-        img.alt = product.altTxt;
-        article.appendChild(img);
+    const article = document.createElement('article');
+    a.appendChild(article);
 
-        const title = document.createElement('h3');
-        title.classList = 'productName';
-        title.innerHTML = product.name;
-        article.appendChild(title);
+    const img = document.createElement('img');
+    img.src = product.imageUrl;
+    img.alt = product.altTxt;
+    article.appendChild(img);
 
-        const desc = document.createElement('p');
-        desc.classList = 'productDescription';
-        desc.innerHTML = product.description;
-        article.appendChild(desc);
-    });
-    return respData;
+    const title = document.createElement('h3');
+    title.classList = 'productName';
+    title.innerHTML = product.name;
+    article.appendChild(title);
 
-};
+    const desc = document.createElement('p');
+    desc.classList = 'productDescription';
+    desc.innerHTML = product.description;
+    article.appendChild(desc);
+  });
+  return respData;
+}
 
 getProduct();
