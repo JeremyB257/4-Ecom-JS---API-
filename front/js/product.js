@@ -1,9 +1,9 @@
 //SELECTOR
-const APIURL = 'http://localhost:3000/api/products';
+//const APIURL = 'http://localhost:3000/api/products';
+//const APIURLProduct = APIURL + '/' + itemId;
+const APIURL = '../datas/products.json';
 
 const itemId = document.location.search.substring(7);
-
-const APIURLProduct = APIURL + '/' + itemId;
 const itemImg = document.querySelector('.item__img');
 const itemTitle = document.getElementById('title');
 const itemPrice = document.getElementById('price');
@@ -24,11 +24,13 @@ if (productArray) {
 }
 
 async function fetchProduct() {
-  await fetch(APIURLProduct)
+  await fetch(APIURL)
     .then((res) => res.json())
     .catch((err) => console.log(err))
     .then((promise) => {
-      product = promise;
+      //console.log(promise.filter((product) => product._id == itemId));
+      product = promise.filter((product) => product._id == itemId)[0];
+      console.log(product);
     })
     .catch((err) => console.log(err));
 }
@@ -40,7 +42,7 @@ async function getProduct() {
   document.title = product.name;
   const img = document.createElement('img');
   img.alt = product.altTxt;
-  img.src = product.imageUrl;
+  img.src = `../images/${product.imageUrl}`;
   itemImg.appendChild(img);
   itemTitle.innerHTML = product.name;
   itemPrice.innerHTML = product.price;
