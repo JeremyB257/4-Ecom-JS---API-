@@ -1,8 +1,10 @@
 // SELECTOR
-const APIURL = 'http://localhost:3000/api/products';
+//const APIURL = 'http://localhost:3000/api/products';
+const APIURL = '../datas/products.json';
 const items = document.getElementById('items');
 const qtyCart = document.querySelector('.qty-cart');
 let productArray = JSON.parse(localStorage.getItem('product'));
+
 // EVENT
 
 // FUNCTION
@@ -32,7 +34,7 @@ async function getProduct() {
     a.appendChild(article);
 
     const img = document.createElement('img');
-    img.src = product.imageUrl;
+    img.src = `../images/${product.imageUrl}`;
     img.alt = product.altTxt;
     article.appendChild(img);
 

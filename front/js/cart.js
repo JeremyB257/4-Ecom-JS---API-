@@ -1,6 +1,6 @@
 // CONST
-const APIURL = 'http://localhost:3000/api/products';
-
+//const APIURL = 'http://localhost:3000/api/products';
+const APIURL = '../datas/products.json';
 let productArray = JSON.parse(localStorage.getItem('product'));
 
 const cartItems = document.getElementById('cart__items');
@@ -65,7 +65,7 @@ async function getProduct() {
           cartItem.setAttribute('data-color', `${productArray[i].couleur}`);
           cartItem.innerHTML = `
                     <div class="cart__item__img">
-                        <img src="${productAPI.imageUrl}" alt="${productAPI.altTxt}">
+                        <img src="../images/${productAPI.imageUrl}" alt="${productAPI.altTxt}">
                     </div>`;
           cartItems.appendChild(cartItem);
 
